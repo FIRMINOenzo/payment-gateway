@@ -52,7 +52,10 @@ func main() {
 	accountRepository := repository.NewAccountRepository(db)
 	accountService := service.NewAccountService(accountRepository)
 
-	server := server.NewServer(accountService, Getenv("PORT", "8080"))
+	invoiceRepository := repository.NewInvoiceRepository(db)
+	invoiceService := service.NewInvoiceService(invoiceRepository, accountService)
+
+	server := server.NewServer(accountService, invoiceService, Getenv("PORT", "8080"))
 	server.ConfigureRoutes()
 
 	log.Println("Server started on port", Getenv("PORT", "8080"))

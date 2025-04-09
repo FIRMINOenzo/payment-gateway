@@ -8,11 +8,61 @@ POST {{baseUrl}}/accounts
 Content-Type: application/json
 
 {
-  "name": "Mary Jane",
-  "email": "mary@jane.com"
+  "name": "Marcus Vinicius",
+  "email": "marcus@vinicius.com"
 }
 
 ### Get Account
 # @name getAccount
 GET {{baseUrl}}/accounts
 X-API-Key: {{apiKey}}
+
+### Create Invoice
+# @name createInvoice
+POST {{baseUrl}}/invoices
+Content-Type: application/json
+X-API-Key: {{apiKey}}
+
+{
+  "amount": 1000,
+  "description": "Invoice for Marcus Vinicius",
+  "payment_type": "credit_card",
+  "card_number": "1234567890123456",
+  "card_holder_name": "Marcus Vinicius",
+  "card_expiration_month": 1,
+  "card_expiration_year": 2025,
+  "card_cvv": "123"
+}
+
+### Create Invoice with amount greater than 10000
+# @name createInvoiceWithAmountGreaterThan10000
+POST {{baseUrl}}/invoices
+Content-Type: application/json
+X-API-Key: {{apiKey}}
+
+{
+  "amount": 10001,
+  "description": "Invoice for Marcus Vinicius",
+  "payment_type": "credit_card",
+  "card_number": "1234567890123456",
+  "card_holder_name": "Marcus Vinicius",
+  "card_expiration_month": 1,
+  "card_expiration_year": 2025,
+  "card_cvv": "123"
+}
+
+### Get Invoice
+# @name getInvoice
+GET {{baseUrl}}/invoices/{{createInvoice.response.body.id}}
+X-API-Key: {{apiKey}}
+
+### List Invoices
+# @name listInvoices
+GET {{baseUrl}}/invoices
+X-API-Key: {{apiKey}}
+
+### Get Invoice by ID
+# @name getInvoiceById
+GET {{baseUrl}}/invoices/{{createInvoice.response.body.id}}
+X-API-Key: {{apiKey}}
+
